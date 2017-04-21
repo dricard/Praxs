@@ -13,9 +13,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var daily = Daily()
+    
+    func loadSampleData() {
+        let sleepContext = Context(hour: 22, minutes: 30, previous: nil, next: nil, color: PraxsStyleKit.nightContextColor, title: "Sleep")
+        let eveningContext = Context(hour: 17, minutes: 0, previous: nil, next: sleepContext, color: PraxsStyleKit.eveningContextColor, title: "Evening")
+        let afternoonCommuteContext = Context(hour: 16, minutes: 30, previous: nil, next: eveningContext, color: PraxsStyleKit.commuteContextColor, title: "Afternoon Commute")
+        let workContext = Context(hour: 9, minutes: 0, previous: nil, next: afternoonCommuteContext, color: PraxsStyleKit.workContextColor, title: "Work")
+        let morningCommute = Context(hour: 7, minutes: 30, previous: nil, next: workContext, color: PraxsStyleKit.commuteContextColor, title: "Morning commute")
+        let morningContext = Context(hour: 6, minutes: 30, previous: nil, next: morningCommute, color: PraxsStyleKit.morningContextColor, title: "Morning")
+        morningCommute.previous = morningContext
+        workContext.previous = morningCommute
+        afternoonCommuteContext.previous = workContext
+        eveningContext.previous = afternoonCommuteContext
+        sleepContext.previous = eveningContext
+        daily.contexts.append(morningContext)
+        daily.contexts.append(morningCommute)
+        daily.contexts.append(workContext)
+        daily.contexts.append(afternoonCommuteContext)
+        daily.contexts.append(eveningContext)
+        daily.contexts.append(sleepContext)
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        // load sample data
+        loadSampleData()
+        
+        // inject daily
+        guard let navController = window?.rootViewController as? UINavigationController, let viewController = navController.topViewController as? ContextVC else { return true }
+        viewController.daily = daily
+        
         return true
     }
 
