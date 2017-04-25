@@ -28,6 +28,8 @@ public class PraxsStyleKit : NSObject {
         static let context_03_textColor: UIColor = PraxsStyleKit.context_03_color.highlight(withLevel: 0.6)
         static let context_04_textColor: UIColor = PraxsStyleKit.context_04_color.shadow(withLevel: 0.6)
         static let context_05_textColor: UIColor = PraxsStyleKit.context_05_color.shadow(withLevel: 0.6)
+        static var imageOfIcon: UIImage?
+        static var iconTargets: [AnyObject]?
     }
 
     //// Colors
@@ -154,6 +156,82 @@ public class PraxsStyleKit : NSObject {
         
         context.restoreGState()
 
+    }
+
+    public dynamic class func drawIcon(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 167, height: 167), resizing: ResizingBehavior = .aspectFit) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()!
+        
+        //// Resize to Target Frame
+        context.saveGState()
+        let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 167, height: 167), target: targetFrame)
+        context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
+        context.scaleBy(x: resizedFrame.width / 167, y: resizedFrame.height / 167)
+
+
+        //// Rectangle Drawing
+        let rectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 167, height: 167))
+        PraxsStyleKit.context_04_color.setFill()
+        rectanglePath.fill()
+
+
+        //// Text Drawing
+        let textRect = CGRect(x: 3, y: 3, width: 150, height: 150)
+        let textTextContent = "P"
+        let textStyle = NSMutableParagraphStyle()
+        textStyle.alignment = .left
+        let textFontAttributes = [NSFontAttributeName: UIFont(name: "ConcourseT8", size: 200)!, NSForegroundColorAttributeName: PraxsStyleKit.context_03_color, NSParagraphStyleAttributeName: textStyle]
+
+        let textTextHeight: CGFloat = textTextContent.boundingRect(with: CGSize(width: textRect.width, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: textFontAttributes, context: nil).height
+        context.saveGState()
+        context.clip(to: textRect)
+        textTextContent.draw(in: CGRect(x: textRect.minX, y: textRect.minY + (textRect.height - textTextHeight) / 2, width: textRect.width, height: textTextHeight), withAttributes: textFontAttributes)
+        context.restoreGState()
+
+
+        //// Text 2 Drawing
+        let text2Rect = CGRect(x: 77, y: 7, width: 90, height: 150)
+        let text2TextContent = "r"
+        let text2Style = NSMutableParagraphStyle()
+        text2Style.alignment = .left
+        let text2FontAttributes = [NSFontAttributeName: UIFont(name: "ConcourseT8", size: 200)!, NSForegroundColorAttributeName: PraxsStyleKit.context_02_color, NSParagraphStyleAttributeName: text2Style]
+
+        let text2TextHeight: CGFloat = text2TextContent.boundingRect(with: CGSize(width: text2Rect.width, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: text2FontAttributes, context: nil).height
+        context.saveGState()
+        context.clip(to: text2Rect)
+        text2TextContent.draw(in: CGRect(x: text2Rect.minX, y: text2Rect.minY + (text2Rect.height - text2TextHeight) / 2, width: text2Rect.width, height: text2TextHeight), withAttributes: text2FontAttributes)
+        context.restoreGState()
+        
+        context.restoreGState()
+
+    }
+
+    //// Generated Images
+
+    public dynamic class var imageOfIcon: UIImage {
+        if Cache.imageOfIcon != nil {
+            return Cache.imageOfIcon!
+        }
+
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 167, height: 167), false, 0)
+            PraxsStyleKit.drawIcon()
+
+        Cache.imageOfIcon = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return Cache.imageOfIcon!
+    }
+
+    //// Customization Infrastructure
+
+    @IBOutlet dynamic var iconTargets: [AnyObject]! {
+        get { return Cache.iconTargets }
+        set {
+            Cache.iconTargets = newValue
+            for target: AnyObject in newValue {
+                let _ = target.perform(NSSelectorFromString("setImage:"), with: PraxsStyleKit.imageOfIcon)
+            }
+        }
     }
 
 
