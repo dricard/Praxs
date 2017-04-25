@@ -28,7 +28,7 @@ class ContextVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        contextsView.backgroundColor = PraxsStyleKit.nightContextColor
+        contextsView.backgroundColor = Colors.context[Colors.night]
         contextsView.alpha = 1.0
         updateInterface()
     }
@@ -87,7 +87,7 @@ class ContextVC: UIViewController {
         let minimumUnitSize: CGFloat = scale * context.miniumuContextUnit
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             let translation = gestureRecognizer.translation(in: contextView.superview!)
-            let adjustedTranslation = adjustTranslation(translation: translation.y, minimumStep: minimumUnitSize)
+            let adjustedTranslation = adjustTranslation(translation: translation.y, minimumStep: minimumUnitSize, scale: scale)
             if context.next != nil {
                 bottom = CGFloat(context.next!.timeInMinutes) * scale
             }
@@ -97,7 +97,12 @@ class ContextVC: UIViewController {
             } else {
                 minimumPosition = buffer
             }
-            let maximumPosition = contextView.topPosition + contextView.frame.height
+            let maximumPosition: CGFloat
+            if let next = context.next {
+                maximumPosition = (CGFloat(next.timeInMinutes) - context.minimumContextDuration) * scale
+            } else {
+                maximumPosition = 24 * 60 * scale
+            }
             var newYPosition = contextView.topPosition + adjustedTranslation
             if newYPosition < minimumPosition { newYPosition = minimumPosition }
             if newYPosition > maximumPosition { newYPosition = maximumPosition }
@@ -125,7 +130,7 @@ class ContextVC: UIViewController {
     }
     
     
-    func adjustTranslation(translation: CGFloat, minimumStep: CGFloat) -> CGFloat {
+    func adjustTranslation(translation: CGFloat, minimumStep: CGFloat, scale: CGFloat) -> CGFloat {
         let units = CGFloat(Int(round(translation / minimumStep))) * minimumStep
         return units
     }

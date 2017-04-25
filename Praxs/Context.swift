@@ -17,7 +17,7 @@ class Context {
     var minutes: Int
     var next: Context?
     var previous: Context?
-    var color: UIColor
+    var color: Int
     var title: String
  
     var timeInMinutes: Int {
@@ -29,7 +29,7 @@ class Context {
     
     // MARK: - Initializer
     
-    init(hour: Int, minutes: Int, previous: Context?, next: Context?, color: UIColor, title: String) {
+    init(hour: Int, minutes: Int, previous: Context?, next: Context?, color: Int, title: String) {
         self.hour = hour
         self.minutes = minutes
         self.previous = previous
