@@ -10,9 +10,12 @@ import UIKit
 
 class ContextVC: UIViewController {
 
-    // MARK: - Properties
+    // MARK: - Dependency Injection
     
     var daily: Daily?
+
+    // MARK: - Properties
+    
     var startingPostion: CGPoint = CGPoint.zero
     let buffer: CGFloat = 5
     let minutesInADay: CGFloat = 24 * 60
@@ -81,22 +84,24 @@ class ContextVC: UIViewController {
         let scale = verticalContextSize / minutesInADay
         var bottom: CGFloat = minutesInADay * scale
         guard let context = contextView.context else { return }
+        let minimumUnitSize: CGFloat = scale * context.miniumuContextUnit
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             let translation = gestureRecognizer.translation(in: contextView.superview!)
+            let adjustedTranslation = adjustTranslation(translation: translation.y, minimumStep: minimumUnitSize)
             if context.next != nil {
                 bottom = CGFloat(context.next!.timeInMinutes) * scale
             }
             let minimumPosition: CGFloat
             if contextView.previous != nil {
-                minimumPosition = contextView.previous!.topPosition
+                minimumPosition = contextView.previous!.topPosition + context.minimumContextDuration * scale
             } else {
                 minimumPosition = buffer
             }
             let maximumPosition = contextView.topPosition + contextView.frame.height
-            var newYPosition = contextView.topPosition + translation.y
+            var newYPosition = contextView.topPosition + adjustedTranslation
             if newYPosition < minimumPosition { newYPosition = minimumPosition }
             if newYPosition > maximumPosition { newYPosition = maximumPosition }
-            contextView.frame = CGRect(x: buffer, y: newYPosition, width: horizontalContextSize, height: bottom - newYPosition)
+            contextView.frame = CGRect(x: buffer, y: newYPosition, width: horizontalContextSize, height: bottom - newYPosition + buffer)
             let (hour, minutes) = timeFromPosition(y: newYPosition, scale: scale)
             contextView.timeLabel.text = "\(hour):\(minutes < 10 ? "0" : "")\(minutes)"
             if contextView.previous != nil {
@@ -117,5 +122,11 @@ class ContextVC: UIViewController {
         let hour: Int = Int(timeInMinutes) / 60
         let minutes: Int = Int(timeInMinutes) % 60
         return (hour, minutes)
+    }
+    
+    
+    func adjustTranslation(translation: CGFloat, minimumStep: CGFloat) -> CGFloat {
+        let units = CGFloat(Int(round(translation / minimumStep))) * minimumStep
+        return units
     }
 }

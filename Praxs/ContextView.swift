@@ -64,6 +64,13 @@ class ContextView: UIView {
         timeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
         timeLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
+        // set the top handle view
+        let topHandleViewWidth: CGFloat = 30
+        let topHandleViewHeight: CGFloat = 15
+        let topHandleViewRect = CGRect(x: self.bounds.width / 2 - topHandleViewWidth / 2, y: 0, width: topHandleViewWidth, height: topHandleViewHeight)
+        let topHandleView = UIView(frame: topHandleViewRect)
+        addSubview(topHandleView)
+        topHandleView.backgroundColor = PraxsStyleKit.nightContextColor
     }
     
     /*

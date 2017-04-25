@@ -24,6 +24,9 @@ class Context {
         return hour * 60 + minutes
     }
 
+    let minimumContextDuration: CGFloat = 30 // minutes
+    let miniumuContextUnit: CGFloat = 5 // minutes
+    
     // MARK: - Initializer
     
     init(hour: Int, minutes: Int, previous: Context?, next: Context?, color: UIColor, title: String) {
