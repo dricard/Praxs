@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var daily = Daily()
-    
+
     func loadSampleData() {
         let sleepContext = Context(hour: 22, minutes: 30, previous: nil, next: nil, color: 2, title: "Sleep")
         let eveningContext = Context(hour: 17, minutes: 0, previous: nil, next: sleepContext, color: 3, title: "Evening")

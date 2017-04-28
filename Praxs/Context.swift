@@ -23,9 +23,10 @@ class Context {
     var timeInMinutes: Int {
         return hour * 60 + minutes
     }
-
-    let minimumContextDuration: CGFloat = 30 // minutes
-    let miniumuContextUnit: CGFloat = 5 // minutes
+    
+    let minimumContextDuration: CGFloat = 30    // minutes
+    let minimumContextUnit: CGFloat = 5         // minutes
+    let navigationBarHeight: CGFloat = 44
     
     // MARK: - Initializer
     
@@ -38,8 +39,17 @@ class Context {
         self.title = title
     }
     
-    // MARK: - Methods
+    // MARK: - General Methods
+    
     func timeLabel() -> String {
         return "\(hour):\(minutes < 10 ? "0" : "")\(minutes)"
     }
+    
+    // MARK: - Drawing mthods
+    
+    func frame(scale: CGFloat, start: CGFloat, width: CGFloat, bottom: CGFloat, buffer: CGFloat) -> CGRect {
+        return CGRect(x: buffer, y: buffer + navigationBarHeight + (CGFloat(timeInMinutes) - start) * scale, width: width, height: (bottom - (CGFloat(timeInMinutes) - start)) * scale)
+    }
+    
+    
 }

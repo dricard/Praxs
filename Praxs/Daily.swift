@@ -13,6 +13,18 @@ struct Daily {
     // MARK: - Properties
     
     var contexts = [Context]()
+    var startHour: CGFloat = 6
+    var startMinutes: CGFloat = 0
+    var endHour: CGFloat = 23
+    var endMinutes: CGFloat = 55
+    
+    var start: CGFloat {
+        return startHour * 60 + startMinutes
+    }
+    
+    var end: CGFloat {
+        return endHour * 60 + endMinutes
+    }
     
     // MARK: - Methods
     
@@ -21,5 +33,9 @@ struct Daily {
             lhs.hour + lhs.minutes < rhs.hour + rhs.minutes
         }
         contexts = sorted
+    }
+    
+    func totalMinutes() -> CGFloat {
+        return (endHour * 60 + endMinutes) - (startHour * 60 + startMinutes)
     }
 }
