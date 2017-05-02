@@ -16,12 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var daily = Daily()
 
     func loadSampleData() {
-        let sleepContext = Context(hour: 22, minutes: 30, previous: nil, next: nil, color: 2, title: "Sleep")
-        let eveningContext = Context(hour: 17, minutes: 0, previous: nil, next: sleepContext, color: 3, title: "Evening")
-        let afternoonCommuteContext = Context(hour: 16, minutes: 30, previous: nil, next: eveningContext, color: 1, title: "Afternoon Commute")
-        let workContext = Context(hour: 9, minutes: 0, previous: nil, next: afternoonCommuteContext, color: 4, title: "Work")
-        let morningCommute = Context(hour: 7, minutes: 30, previous: nil, next: workContext, color: 1, title: "Morning commute")
-        let morningContext = Context(hour: 6, minutes: 30, previous: nil, next: morningCommute, color: 0, title: "Morning")
+        let sleepContext = Context(hours: 22, minutes: 30, previous: nil, next: nil, color: 2, title: "Sleep")
+        let eveningContext = Context(hours: 17, minutes: 0, previous: nil, next: sleepContext, color: 3, title: "Evening")
+        let afternoonCommuteContext = Context(hours: 16, minutes: 30, previous: nil, next: eveningContext, color: 1, title: "Afternoon Commute")
+        let workContext = Context(hours: 9, minutes: 0, previous: nil, next: afternoonCommuteContext, color: 4, title: "Work")
+        let morningCommute = Context(hours: 7, minutes: 30, previous: nil, next: workContext, color: 1, title: "Morning commute")
+        let morningContext = Context(hours: 6, minutes: 30, previous: nil, next: morningCommute, color: 0, title: "Morning")
         morningCommute.previous = morningContext
         workContext.previous = morningCommute
         afternoonCommuteContext.previous = workContext

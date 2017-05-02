@@ -14,12 +14,16 @@ class ContextView: UIView {
     var context: Context?
     var nameLabel: UILabel!
     var timeLabel: UILabel!
-    var topPosition: CGFloat
+    var topPosition: Int
     var previous: ContextView?
     
     init(frame: CGRect, context: Context, previous: ContextView?) {
         self.context = context
-        self.topPosition = frame.origin.y
+        if let context = self.context {
+            self.topPosition = context.timeInMinutes
+        } else {
+            self.topPosition = 0
+        }
         self.previous = previous
         super.init(frame: frame)
         setUpSubViews()
@@ -27,7 +31,7 @@ class ContextView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         self.context = nil
-        self.topPosition = CGFloat(0)
+        self.topPosition = 0
         super.init(coder: aDecoder)
     }
         

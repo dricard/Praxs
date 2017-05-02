@@ -13,16 +13,16 @@ struct Daily {
     // MARK: - Properties
     
     var contexts = [Context]()
-    var startHour: CGFloat = 6
-    var startMinutes: CGFloat = 0
-    var endHour: CGFloat = 23
-    var endMinutes: CGFloat = 55
+    var startHour: Int = 6
+    var startMinutes: Int = 0
+    var endHour: Int = 23
+    var endMinutes: Int = 55
     
-    var start: CGFloat {
+    var start: Int {
         return startHour * 60 + startMinutes
     }
     
-    var end: CGFloat {
+    var end: Int {
         return endHour * 60 + endMinutes
     }
     
@@ -30,12 +30,12 @@ struct Daily {
     
     mutating func sort() {
         let sorted = contexts.sorted { (lhs, rhs) -> Bool in
-            lhs.hour + lhs.minutes < rhs.hour + rhs.minutes
+            lhs.hours + lhs.minutes < rhs.hours + rhs.minutes
         }
         contexts = sorted
     }
     
-    func totalMinutes() -> CGFloat {
+    func totalMinutes() -> Int {
         return (endHour * 60 + endMinutes) - (startHour * 60 + startMinutes)
     }
 }
