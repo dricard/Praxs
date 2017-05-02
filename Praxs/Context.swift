@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+/// A period of the day where a set of routines make sense.
+/// It is defined by a start time (hours, minutes) and a 
+/// following context (next). For convinience it also holds
+/// the previous context.
 class Context {
     
     // MARK: - properties
@@ -18,7 +22,7 @@ class Context {
     // hours and minutes represent the start time of the context
     var next: Context?          // points to the next context
     var previous: Context?      // points to the previous context
-    var color: Int              // color of the context's background
+    var color: Int              // color of the context's background (indexed, see Colors)
     var title: String           // name of the context
  
     /// The hours of the start time of the context.
@@ -125,6 +129,4 @@ class Context {
         }
         return CGRect(x: buffer, y: buffer + navigationBarHeight + CGFloat(timeInMinutes - start) * scale, width: width, height: CGFloat(bottom - timeInMinutes) * scale)
     }
-    
-    
 }
