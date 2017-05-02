@@ -35,6 +35,10 @@ class ContextView: UIView {
         super.init(coder: aDecoder)
     }
         
+    /// Set up the Context's elements:
+    /// - nameLabel
+    /// - timeLabel
+    /// - topHandleView
     func setUpSubViews() {
         guard let context = context else { return }
         // set background color
@@ -52,7 +56,6 @@ class ContextView: UIView {
         
         // set constraints on name label
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40).isActive = true
         nameLabel.widthAnchor.constraint(equalTo: widthAnchor, constant: bounds.width / 2).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -84,13 +87,5 @@ class ContextView: UIView {
         addSubview(topHandleView)
         topHandleView.backgroundColor = UIColor.clear
     }
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }
