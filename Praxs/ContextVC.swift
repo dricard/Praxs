@@ -57,6 +57,7 @@ class ContextVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contextsView.backgroundColor = Colors.context[Colors.night]
+//        contextsView.backgroundColor = UIColor.blue
         contextsView.alpha = 1.0
         setupInterface()
     }
