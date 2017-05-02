@@ -16,9 +16,10 @@ class ContextVC: UIViewController {
 
     // MARK: - Properties
     
-    var startingPostion: CGPoint = CGPoint.zero
-    let buffer: CGFloat = 5
+    let buffer: CGFloat = 5 // space around the contexts
     let navigationBarHeight: CGFloat = 44 + 20 // navigation plus status bar
+    
+    /// Total number of minutes in a day available to context
     var minutesInADay: Int {
         if let daily = daily {
             return daily.totalMinutes()
@@ -27,14 +28,17 @@ class ContextVC: UIViewController {
         }
     }
 
+    /// vertical screen size available to context
     var verticalContextSize: CGFloat {
         return view.bounds.height - 2 * buffer - navigationBarHeight
     }
     
+    /// horizontal screen size available to context
     var horizontalContextSize: CGFloat {
         return view.bounds.width - 2 * buffer
     }
     
+    /// screen scale in **CGFloat per minute**
     var scale: CGFloat {
         return verticalContextSize / CGFloat(minutesInADay)
     }
@@ -59,6 +63,7 @@ class ContextVC: UIViewController {
     
     // MARK: - Interface Methods
     
+    /// Initial setup of the contexts' views.
     func setupInterface() {
         guard var daily = daily else { return }
         // Set Contexts Views as subviews of contextsView
@@ -79,6 +84,12 @@ class ContextVC: UIViewController {
         }
     }
     
+    /// Divide the vertical space available to contexts between them.
+    /// This takes into account the start and end values of the Daily instance
+    ///
+    /// - Parameter daily: reference to the Daily instance
+    /// - Returns: an array of tuples containing the CGRect for the contextView
+    ///     and the corresponding context
     func generateContextsFrames(daily: Daily) -> [(CGRect, Context)] {
         var cFrames = [(CGRect, Context)]()
         for (_, context) in daily.contexts.sorted(by: { (lhs, rhs) -> Bool in
@@ -90,6 +101,14 @@ class ContextVC: UIViewController {
         return cFrames
     }
     
+    /// Handler for dragging a context start time. This only allows
+    /// changing the start time of the dragged context. It is limited
+    /// by the `minimumContextDuration` (defined in Context), both for
+    /// the dragged context's duration, and for the previous context's.
+    /// It only increments/decrements start time by `minimumContextUnit`
+    /// (also defined in Context).
+    ///
+    /// - Parameter gestureRecognizer: gesture recognizer involved in drag.
     func dragContext(gestureRecognizer: UIPanGestureRecognizer) {
         let contextView = gestureRecognizer.view as! ContextView
         // get the context drawing area and the scale
@@ -113,13 +132,21 @@ class ContextVC: UIViewController {
         }
     }
     
+    /// Converts the translation (drag value) to a new start time for the 
+    /// context dragged (withing the min/max parameter).
+    ///
+    /// - Parameters:
+    ///   - translation: vertical drag value (translation.y)
+    ///   - minMax: a tuple with the minimum and maximum start time (in minutes)
+    ///   - topPosition: context's start time prior to dragging
+    /// - Returns: a new start time in minutes
     func newTimeFromPosition(translation: CGFloat, minMax: MinMaxY, topPosition: Int) -> Time {
-        // we start with the currently saved "topPosition", i.e., the start time before
-        // the drag action started.
+        // we start with the currently saved "topPosition", i.e., 
+        // the start time before the drag action started.
         var timeInMinutes: Int = topPosition
         // then add the drag translated in minutes
         timeInMinutes += Int(translation / scale)
-        // set min, max depending on surrounding contexts
+        // And limit to the min, max depending on surrounding contexts
         if timeInMinutes < minMax.minimumY { timeInMinutes = minMax.minimumY }
         if timeInMinutes > minMax.maximumY { timeInMinutes = minMax.maximumY }
         // convert to hour:Min
@@ -128,21 +155,29 @@ class ContextVC: UIViewController {
         return (hour, minutes)
     }
     
-    
+    /// Creates a tuple with the minimum and maximum start time for a context.
+    /// This takes the previous context's start time and `minimumContextDuration`
+    /// into account.
+    ///
+    /// - Parameters:
+    ///   - contextView: the current context's ContextView
+    ///   - context: the context being dragged
+    ///   - daily: the Daily instance
+    /// - Returns: a MinMax tuple
     func getMinMax(contextView: ContextView, context: Context, daily: Daily) -> MinMaxY {
-        let minimumPosition: Int
+        let minimumTime: Int
         if let previousContextView = contextView.previous, let previousContext = previousContextView.context {
-            minimumPosition = previousContext.timeInMinutes + context.minimumContextDuration
+            minimumTime = previousContext.timeInMinutes + context.minimumContextDuration
         } else {
-            minimumPosition = daily.start
+            minimumTime = daily.start
         }
-        let maximumPosition: Int
+        let maximumTime: Int
         if let nextContext = context.next {
-            maximumPosition = nextContext.timeInMinutes - context.minimumContextDuration
+            maximumTime = nextContext.timeInMinutes - context.minimumContextDuration
         } else {
-            maximumPosition = daily.end - context.minimumContextDuration
+            maximumTime = daily.end - context.minimumContextDuration
         }
-        return (minimumPosition, maximumPosition)
+        return (minimumTime, maximumTime)
     }
     
 }
