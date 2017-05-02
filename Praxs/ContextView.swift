@@ -79,6 +79,8 @@ class ContextView: UIView {
         let topHandleViewHeight: CGFloat = 6
         let topHandleViewRect = CGRect(x: self.bounds.width / 2 - topHandleViewWidth / 2, y: 0, width: topHandleViewWidth, height: topHandleViewHeight)
         let topHandleView = TopHandleView(frame: topHandleViewRect)
+        topHandleView.strokeColor = Colors.text[context.color]
+        topHandleView.fillColor = Colors.context[context.color]
         addSubview(topHandleView)
         topHandleView.backgroundColor = UIColor.clear
     }

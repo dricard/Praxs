@@ -10,8 +10,13 @@ import UIKit
 
 class TopHandleView: UIView {
 
+    // MARK: - Properties
+    
+    var fillColor: UIColor!
+    var strokeColor: UIColor!
+    
     override func draw(_ rect: CGRect) {
-        PraxsStyleKit.drawTopHandle(frame: bounds, resizing: .aspectFit)
+        PraxsStyleKit.drawTopHandle(frame: bounds, resizing: .aspectFit, fillColor: fillColor, strokeColor: strokeColor)
     }
 
 }
