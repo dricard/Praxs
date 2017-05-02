@@ -8,6 +8,10 @@
 
 import UIKit
 
+/// Daily holds the list of contexts and the start and end time for the day.
+/// - methods:
+///     - `sort()`: sorts contexts by time
+///     - `totalMinutes()`: number of minutes in a day available for contexts (end - start)
 struct Daily {
     
     // MARK: - Properties
@@ -28,6 +32,7 @@ struct Daily {
     
     // MARK: - Methods
     
+    /// Sorts contexts by time
     mutating func sort() {
         let sorted = contexts.sorted { (lhs, rhs) -> Bool in
             lhs.hours + lhs.minutes < rhs.hours + rhs.minutes
@@ -35,6 +40,9 @@ struct Daily {
         contexts = sorted
     }
     
+    /// Number of minutes in a day available for contexts
+    ///
+    /// - Returns: (end - start) in minutes
     func totalMinutes() -> Int {
         return (endHour * 60 + endMinutes) - (startHour * 60 + startMinutes)
     }
