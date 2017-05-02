@@ -154,13 +154,13 @@ public class PraxsStyleKit : NSObject {
 
 
         //// Rectangle 2 Drawing
-        let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: 3, y: 1.5, width: 40, height: 1), cornerRadius: 0.5)
+        let rectangle2Path = UIBezierPath(roundedRect: CGRect(x: 4, y: 1.5, width: 38, height: 1), cornerRadius: 0.5)
         strokeColor.setFill()
         rectangle2Path.fill()
 
 
         //// Rectangle 3 Drawing
-        let rectangle3Path = UIBezierPath(roundedRect: CGRect(x: 3, y: 3, width: 40, height: 1), cornerRadius: 0.5)
+        let rectangle3Path = UIBezierPath(roundedRect: CGRect(x: 7, y: 3, width: 32, height: 1), cornerRadius: 0.5)
         strokeColor.setFill()
         rectangle3Path.fill()
         
