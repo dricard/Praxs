@@ -18,7 +18,7 @@ class ContextVC: UIViewController {
     
     var startingPostion: CGPoint = CGPoint.zero
     let buffer: CGFloat = 5
-    let navigationBarHeight: CGFloat = 44
+    let navigationBarHeight: CGFloat = 44 + 20 // navigation plus status bar
     var minutesInADay: Int {
         if let daily = daily {
             return daily.totalMinutes()
@@ -55,13 +55,8 @@ class ContextVC: UIViewController {
         contextsView.backgroundColor = Colors.context[Colors.night]
         contextsView.alpha = 1.0
         setupInterface()
+        print("vertical = \(verticalContextSize)")
     }
-
-    // MARK: - Utilities
-    
-//    func timeString(_ time: Time) -> String {
-//        return "\(time.hours):\(time.minutes < 10 ? "0" : "")\(time.minutes)"
-//    }
     
     // MARK: - Interface Methods
     
@@ -83,16 +78,17 @@ class ContextVC: UIViewController {
             contextView.isUserInteractionEnabled = true
             dragGesture.delegate = self as? UIGestureRecognizerDelegate
         }
-        
     }
     
     func generateContextsFrames(daily: Daily) -> [(CGRect, Context)] {
         var cFrames = [(CGRect, Context)]()
-        print("minutes: \(minutesInADay), scale: \(scale)")
         for (_, context) in daily.contexts.sorted(by: { (lhs, rhs) -> Bool in
             return lhs.timeInMinutes < rhs.timeInMinutes
         }).enumerated() {
             let frame = context.frame(scale: scale, start: daily.start, end: daily.end, width: horizontalContextSize, buffer: buffer)
+            if context.title == "Morning" {
+                print("morning top is \(frame.minY)")
+            }
             cFrames.append((frame, context))
         }
         return cFrames
@@ -105,26 +101,18 @@ class ContextVC: UIViewController {
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             // get the drag value
             let translation = gestureRecognizer.translation(in: contextView.superview!)
-//            let newYPosition = newPositionFromTranslation(contextView: contextView, context: context, daily: daily, translation: translation.y)
             let minMax = getMinMax(contextView: contextView, context: context, daily: daily)
             let newTime = newTimeFromPosition(translation: translation.y, minMax: minMax, topPosition: contextView.topPosition)
             context.hours = newTime.hours
             context.minutes = newTime.minutes
             contextView.timeLabel.text = context.timeLabel()
-//            let bottom = maxFramePosition(context: context, daily: daily)
             contextView.frame = context.frame(scale: scale, start: daily.start, end: daily.end, width: horizontalContextSize, buffer: buffer)
             if contextView.previous != nil {
                 guard let previousContext = contextView.previous!.context else { return }
-//                let previousBottom = maxFramePosition(context: previousContext, daily: daily)
                 contextView.previous!.frame = previousContext.frame(scale: scale, start: daily.start, end: daily.end, width: horizontalContextSize, buffer: buffer)
             }
         } else if gestureRecognizer.state == .ended {
-            // update time for each affected context depending on end position
-//            let (hour, minutes) = newTimeFromPosition(y: contextView.frame.origin.y)
-//            print("AVANT: \(context.hour):\(context.minutes)")
-//            context.hour = hour
-//            context.minutes = minutes
-//            print("APRÈS: \(context.hour):\(context.minutes)")
+            // update saved starting time for affected context
             contextView.topPosition = context.timeInMinutes
         }
     }
@@ -136,31 +124,14 @@ class ContextVC: UIViewController {
         // then add the drag translated in minutes
         timeInMinutes += Int(translation / scale)
         // set min, max depending on surrounding contexts
-        if timeInMinutes < minMax.minimumY { timeInMinutes = minMax.minimumY; print("Min set") }
-        if timeInMinutes > minMax.maximumY { timeInMinutes = minMax.maximumY; print("Max set") }
+        if timeInMinutes < minMax.minimumY { timeInMinutes = minMax.minimumY }
+        if timeInMinutes > minMax.maximumY { timeInMinutes = minMax.maximumY }
         // convert to hour:Min
         let hour: Int = Int(timeInMinutes) / 60
         let minutes: Int = Int(timeInMinutes) % 60
         return (hour, minutes)
     }
     
-    
-//    func adjustTranslation(translation: CGFloat, minimumStep: CGFloat, contextView: ContextView, context: Context, daily: Daily) -> CGFloat {
-//        let position = newPositionFromTranslation(contextView: contextView, context: context, daily: daily, translation: translation)
-//        print("position: \(position)")
-//        let nonAdjustedTimeFromTranslation = newTimeFromPosition(y: translation)
-//        print("non adjusted time: \(nonAdjustedTimeFromTranslation)")
-//        let minutes = nonAdjustedTimeFromTranslation.hours * 60 + nonAdjustedTimeFromTranslation.minutes
-//        print("minutes: \(minutes)")
-//        let timeStep = Int(context.minimumContextUnit)
-//        print("timeStep: \(timeStep)")
-//        let adjustedTime = (minutes % timeStep) > 2 ? (Int(minutes / timeStep) + 1) * timeStep : Int(minutes / timeStep) * timeStep
-//        print("adjustedTime: \(adjustedTime)")
-//        let adjustedTranslation = (CGFloat(adjustedTime) - daily.start) * scale + buffer
-//        print("adjusted translation: \(adjustedTranslation)")
-////        let units = CGFloat(Int(round(translation / minimumStep))) * minimumStep
-//        return translation + adjustedTranslation
-//    }
     
     func getMinMax(contextView: ContextView, context: Context, daily: Daily) -> MinMaxY {
         let minimumPosition: Int
@@ -175,26 +146,7 @@ class ContextVC: UIViewController {
         } else {
             maximumPosition = daily.end
         }
-        print("Min: \(minimumPosition), max: \(maximumPosition)")
         return (minimumPosition, maximumPosition)
     }
     
-//    func newPositionFromTranslation(contextView: ContextView, context: Context, daily: Daily, translation: CGFloat) -> CGFloat {
-//        let minMaxY = getMinMax(contextView: contextView, context: context, daily: daily)
-//        var newYPosition = contextView.topPosition + translation
-//        if newYPosition < minMaxY.minimumY { newYPosition = minMaxY.minimumY }
-//        if newYPosition > minMaxY.maximumY { newYPosition = minMaxY.maximumY }
-//        return newYPosition
-//    }
-    
-//    func maxFramePosition(context: Context, daily: Daily) -> CGFloat {
-//        var bottom: CGFloat
-//        if context.next != nil {
-//            bottom = CGFloat(context.next!.timeInMinutes) - daily.start
-//        } else {
-//            bottom = CGFloat(minutesInADay)
-//        }
-//        return bottom
-//    }
-
 }

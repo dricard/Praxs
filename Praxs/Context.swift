@@ -70,7 +70,7 @@ class Context {
     
     let minimumContextDuration: Int = 30    // minutes
     let minimumContextUnit: Int = 5         // minutes
-    let navigationBarHeight: CGFloat = 44
+    let navigationBarHeight: CGFloat = 44 + 20 // navigation bar plus status bar
     
     // MARK: - Initializer
     
