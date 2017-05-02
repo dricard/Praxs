@@ -51,13 +51,14 @@ class Context {
             return _minutes
         }
         set (newValue) {
-            if newValue <= 0 {
+            let roundedNewValue = roundToIncrement(newValue)
+            if roundedNewValue <= 0 {
                 _minutes = 0
-            } else if newValue > 59 {
-                _minutes = roundToIncrement(newValue - 60)
+            } else if roundedNewValue > 59 {
+                _minutes = roundedNewValue - 60
                 _hours += 1
             } else {
-                _minutes = roundToIncrement(newValue)
+                _minutes = roundedNewValue
             }
         }
     }

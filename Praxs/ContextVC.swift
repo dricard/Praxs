@@ -55,7 +55,6 @@ class ContextVC: UIViewController {
         contextsView.backgroundColor = Colors.context[Colors.night]
         contextsView.alpha = 1.0
         setupInterface()
-        print("vertical = \(verticalContextSize)")
     }
     
     // MARK: - Interface Methods
@@ -86,9 +85,6 @@ class ContextVC: UIViewController {
             return lhs.timeInMinutes < rhs.timeInMinutes
         }).enumerated() {
             let frame = context.frame(scale: scale, start: daily.start, end: daily.end, width: horizontalContextSize, buffer: buffer)
-            if context.title == "Morning" {
-                print("morning top is \(frame.minY)")
-            }
             cFrames.append((frame, context))
         }
         return cFrames
