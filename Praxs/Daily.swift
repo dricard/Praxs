@@ -15,8 +15,8 @@ struct Daily {
     var contexts = [Context]()
     var startHour: Int = 6
     var startMinutes: Int = 0
-    var endHour: Int = 23
-    var endMinutes: Int = 55
+    var endHour: Int = 24
+    var endMinutes: Int = 00
     
     var start: Int {
         return startHour * 60 + startMinutes

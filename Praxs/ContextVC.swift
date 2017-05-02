@@ -140,7 +140,7 @@ class ContextVC: UIViewController {
         if let nextContext = context.next {
             maximumPosition = nextContext.timeInMinutes - context.minimumContextDuration
         } else {
-            maximumPosition = daily.end
+            maximumPosition = daily.end - context.minimumContextDuration
         }
         return (minimumPosition, maximumPosition)
     }
