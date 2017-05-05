@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RoutineListVC: UIViewController {
+class RoutineListVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
