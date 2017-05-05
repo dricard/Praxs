@@ -19,6 +19,8 @@ protocol ListOfThingsToBeDone {
     var tasks: [Task] { get set }
     mutating func complete(_ taskIndex: Int)
     mutating func reset()
+    func numberOfCompletedTasks() -> Int
+    func totalNumberOfTasks() -> Int
 }
 
 extension ThingsThatNeedToBeDone {
@@ -42,6 +44,39 @@ extension ListOfThingsToBeDone {
             tasks[index].done = false
         }
     }
+    
+    func numberOfCompletedTasks() -> Int {
+        let number = tasks.reduce(0, { sum, task in
+            sum + (task.done ? 1 : 0)
+        })
+        return number
+    }
+
+    func numberOfUncompletedTasks() -> Int {
+        let number = tasks.reduce(0, { sum, task in
+            sum + (task.done ? 0 : 1)
+        })
+        return number
+    }
+
+    func totalNumberOfTasks() -> Int {
+        return tasks.count
+    }
+
+    func totalTimeForTasks() -> Int {
+        let number = tasks.reduce(0, { sum, task in
+            sum + task.time
+        })
+        return number
+    }
+    
+    func remainingTimeForTasks() -> Int {
+        let number = tasks.reduce(0, { sum, task in
+            sum + (task.done == false ? task.time : 0)
+        })
+        return number
+    }
+
 }
 
 class Task: ThingsThatNeedToBeDone {

@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Create a routine
         for index in 0...5 {
-            let task = Task(name: "task \(index)", time: index * 5 + 45, done: index % 2 == 0)
+            let task = Task(name: "task \(index)", time: index * 5 + 5, done: index % 2 == 0)
             routine.tasks.append(task)
         }
     }
