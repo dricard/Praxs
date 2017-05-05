@@ -49,6 +49,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2113C1DA1EBCB6D00012DC10 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				216D423D1EA0FB3F009C83B1 /* Context.swift */,
+				216D42411EA0FCF7009C83B1 /* Daily.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		2113C1DB1EBCB7430012DC10 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				216D422C1EA0F97D009C83B1 /* Main.storyboard */,
+				21BE6CAD1EA7E4ED00AEFD51 /* TaskCreation.storyboard */,
+				216D42431EA10547009C83B1 /* ContextView.swift */,
+				21D8B7781EAF9FBD007BB7AE /* TopHandleView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		2113C1DC1EBCB7590012DC10 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				216D423A1EA0F9DF009C83B1 /* ContextVC.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		216D421C1EA0F97C009C83B1 = {
 			isa = PBXGroup;
 			children = (
@@ -69,13 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				216D423C1EA0F9F6009C83B1 /* Supporting Files */,
-				216D422C1EA0F97D009C83B1 /* Main.storyboard */,
-				21BE6CAD1EA7E4ED00AEFD51 /* TaskCreation.storyboard */,
-				216D423A1EA0F9DF009C83B1 /* ContextVC.swift */,
-				216D423D1EA0FB3F009C83B1 /* Context.swift */,
-				216D42411EA0FCF7009C83B1 /* Daily.swift */,
-				216D42431EA10547009C83B1 /* ContextView.swift */,
-				21D8B7781EAF9FBD007BB7AE /* TopHandleView.swift */,
+				2113C1DA1EBCB6D00012DC10 /* Model */,
+				2113C1DB1EBCB7430012DC10 /* View */,
+				2113C1DC1EBCB7590012DC10 /* ViewControllers */,
 			);
 			path = Praxs;
 			sourceTree = "<group>";
@@ -84,11 +108,11 @@
 			isa = PBXGroup;
 			children = (
 				21D8B7761EAF9F75007BB7AE /* PraxsStyleKit.swift */,
+				21D8B77A1EAFA9DA007BB7AE /* Colors.swift */,
 				216D42281EA0F97D009C83B1 /* AppDelegate.swift */,
 				216D422F1EA0F97D009C83B1 /* Assets.xcassets */,
 				216D42311EA0F97D009C83B1 /* LaunchScreen.storyboard */,
 				216D42341EA0F97D009C83B1 /* Info.plist */,
-				21D8B77A1EAFA9DA007BB7AE /* Colors.swift */,
 			);
 			name = "Supporting Files";
 			path = ..;
