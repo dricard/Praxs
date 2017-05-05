@@ -21,6 +21,7 @@
 		216D42421EA0FCF7009C83B1 /* Daily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216D42411EA0FCF7009C83B1 /* Daily.swift */; };
 		216D42441EA10547009C83B1 /* ContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216D42431EA10547009C83B1 /* ContextView.swift */; };
 		21BE6CAE1EA7E4ED00AEFD51 /* TaskCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21BE6CAD1EA7E4ED00AEFD51 /* TaskCreation.storyboard */; };
+		21C86C051EBD0E08009BBC39 /* RoutineListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C86C041EBD0E08009BBC39 /* RoutineListVC.swift */; };
 		21D8B7771EAF9F75007BB7AE /* PraxsStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D8B7761EAF9F75007BB7AE /* PraxsStyleKit.swift */; };
 		21D8B7791EAF9FBD007BB7AE /* TopHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D8B7781EAF9FBD007BB7AE /* TopHandleView.swift */; };
 		21D8B77B1EAFA9DA007BB7AE /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D8B77A1EAFA9DA007BB7AE /* Colors.swift */; };
@@ -43,6 +44,7 @@
 		216D42411EA0FCF7009C83B1 /* Daily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Daily.swift; sourceTree = "<group>"; };
 		216D42431EA10547009C83B1 /* ContextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextView.swift; sourceTree = "<group>"; };
 		21BE6CAD1EA7E4ED00AEFD51 /* TaskCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = TaskCreation.storyboard; path = ../TaskCreation.storyboard; sourceTree = "<group>"; };
+		21C86C041EBD0E08009BBC39 /* RoutineListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineListVC.swift; sourceTree = "<group>"; };
 		21D8B7761EAF9F75007BB7AE /* PraxsStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PraxsStyleKit.swift; path = Praxs/PraxsStyleKit.swift; sourceTree = "<group>"; };
 		21D8B7781EAF9FBD007BB7AE /* TopHandleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopHandleView.swift; sourceTree = "<group>"; };
 		21D8B77A1EAFA9DA007BB7AE /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Praxs/Colors.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				2113C1DD1EBCBEEE0012DC10 /* RoutineVC.swift */,
 				2113C1E11EBCD0C70012DC10 /* TaskCell.swift */,
 				2113C1E51EBCF7AE0012DC10 /* RoutineDataCell.swift */,
+				21C86C041EBD0E08009BBC39 /* RoutineListVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2113C1E01EBCBF930012DC10 /* Routine.swift in Sources */,
+				21C86C051EBD0E08009BBC39 /* RoutineListVC.swift in Sources */,
 				216D42441EA10547009C83B1 /* ContextView.swift in Sources */,
 				21D8B77B1EAFA9DA007BB7AE /* Colors.swift in Sources */,
 				216D423E1EA0FB3F009C83B1 /* Context.swift in Sources */,
