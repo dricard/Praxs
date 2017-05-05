@@ -66,7 +66,6 @@ class Context {
             }
         }
     }
-
     
     /// Holds the context's start time converted in minutes (from hours:minutes)
     var timeInMinutes: Int {

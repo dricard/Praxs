@@ -14,8 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var daily = Daily()
+    var routine = Routine()
 
     func loadSampleData() {
+        
+        // Create contexts
+        
         let sleepContext = Context(hours: 22, minutes: 30, previous: nil, next: nil, color: 2, title: "Getting ready to sleep")
         let eveningContext = Context(hours: 18, minutes: 30, previous: nil, next: sleepContext, color: 3, title: "Evening")
         let afternoonCommuteContext = Context(hours: 17, minutes: 30, previous: nil, next: eveningContext, color: 1, title: "Afternoon Commute")
@@ -33,6 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         daily.contexts.append(afternoonCommuteContext)
         daily.contexts.append(eveningContext)
         daily.contexts.append(sleepContext)
+        
+        // Create a routine
+        for index in 0...5 {
+            let task = Task(name: "task \(index)", done: false)
+            routine.tasks.append(task)
+        }
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -43,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // inject daily
         guard let navController = window?.rootViewController as? UINavigationController, let viewController = navController.topViewController as? ContextVC else { return true }
         viewController.daily = daily
+        viewController.routine = routine
         
         return true
     }

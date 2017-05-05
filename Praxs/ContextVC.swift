@@ -13,6 +13,7 @@ class ContextVC: UIViewController {
     // MARK: - Dependency Injection
     
     var daily: Daily?
+    var routine: Routine?
 
     // MARK: - Properties
     
@@ -61,6 +62,17 @@ class ContextVC: UIViewController {
 //        contextsView.backgroundColor = UIColor.blue
         contextsView.alpha = 1.0
         setupInterface()
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToRoutineVC" {
+            let vc = segue.destination as! RoutineVC
+            if let tasks = routine?.tasks {
+                vc.tasks = tasks
+            }
+        }
     }
     
     // MARK: - Interface Methods
