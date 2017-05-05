@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -73,29 +74,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RoutineCell" textLabel="dq5-vQ-BGr" detailTextLabel="1vf-PZ-oBj" style="IBUITableViewCellStyleSubtitle" id="N6i-3a-KKw">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" id="N6i-3a-KKw" customClass="TaskCell" customModule="Praxs" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6i-3a-KKw" id="Hur-TV-5O8">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dq5-vQ-BGr">
-                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="HH:MM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0o-9v-NE8">
+                                            <rect key="frame" x="273" y="15.5" width="59" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfm-s7-K9l" customClass="DoneCheckView" customModule="Praxs" customModuleProvider="target">
+                                            <rect key="frame" x="337" y="6" width="30" height="30"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="d8C-w5-ipJ"/>
+                                                <constraint firstAttribute="width" constant="30" id="qyi-Yf-HlI"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Task name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xp5-IV-mfU">
+                                            <rect key="frame" x="8" y="11" width="252" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="lyc-Mm-qSJ"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1vf-PZ-oBj">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="leadingMargin" secondItem="xp5-IV-mfU" secondAttribute="leading" id="95l-2b-Uup"/>
+                                        <constraint firstItem="o0o-9v-NE8" firstAttribute="centerY" secondItem="Hur-TV-5O8" secondAttribute="centerY" id="X0B-hF-41B"/>
+                                        <constraint firstAttribute="trailing" secondItem="hfm-s7-K9l" secondAttribute="trailing" constant="8" id="Y3b-De-H11"/>
+                                        <constraint firstItem="hfm-s7-K9l" firstAttribute="centerY" secondItem="Hur-TV-5O8" secondAttribute="centerY" id="cU8-9V-Srl"/>
+                                        <constraint firstItem="hfm-s7-K9l" firstAttribute="leading" secondItem="o0o-9v-NE8" secondAttribute="trailing" constant="5" id="esP-ss-s1r"/>
+                                        <constraint firstItem="xp5-IV-mfU" firstAttribute="centerY" secondItem="Hur-TV-5O8" secondAttribute="centerY" id="mPX-EF-TlD"/>
+                                        <constraint firstItem="o0o-9v-NE8" firstAttribute="centerY" secondItem="xp5-IV-mfU" secondAttribute="centerY" id="p48-Mt-PUk"/>
+                                        <constraint firstItem="o0o-9v-NE8" firstAttribute="leading" secondItem="xp5-IV-mfU" secondAttribute="trailing" constant="13" id="zN4-Op-P1h"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="checkView" destination="hfm-s7-K9l" id="rIP-cx-Vxn"/>
+                                    <outlet property="nameLabel" destination="xp5-IV-mfU" id="rjC-s1-3yc"/>
+                                    <outlet property="timeLabel" destination="o0o-9v-NE8" id="icd-0O-SQ1"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -106,7 +131,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rhv-2C-dgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1812" y="165"/>
+            <point key="canvasLocation" x="1812" y="164.16791604197903"/>
         </scene>
     </scenes>
 </document>

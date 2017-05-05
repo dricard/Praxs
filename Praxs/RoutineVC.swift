@@ -27,10 +27,11 @@ class RoutineVC: UITableViewController {
 
 extension RoutineVC {
     
-    func configure(cell: UITableViewCell, indexPath: IndexPath) {
+    func configure(cell: TaskCell, indexPath: IndexPath) {
         guard let tasks = tasks else { return }
-        cell.textLabel?.text = tasks[indexPath.row].name
-        cell.detailTextLabel?.text = tasks[indexPath.row].done ? "done" : "not done yet"
+        cell.nameLabel?.text = tasks[indexPath.row].name
+        cell.timeLabel?.text = tasks[indexPath.row].timeLabel()
+        cell.checkView.done = tasks[indexPath.row].done
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -42,7 +43,7 @@ extension RoutineVC {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
         configure(cell: cell, indexPath: indexPath)
         return cell
     }

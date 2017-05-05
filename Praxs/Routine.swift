@@ -10,7 +10,9 @@ import Foundation
 
 protocol ThingsThatNeedToBeDone {
     var name: String { get set }
+    var time: Int { get set }
     var done: Bool { get set }
+    func timeLabel() -> String
 }
 
 protocol ListOfThingsToBeDone {
@@ -19,6 +21,11 @@ protocol ListOfThingsToBeDone {
     mutating func reset()
 }
 
+extension ThingsThatNeedToBeDone {
+    func timeLabel() -> String {
+        return "\(time) min"
+    }
+}
 extension ListOfThingsToBeDone {
     mutating func complete(_ taskIndex: Int) {
         tasks[taskIndex].done = true
@@ -32,7 +39,8 @@ extension ListOfThingsToBeDone {
 }
 
 struct Task: ThingsThatNeedToBeDone {
-    var name: String = "placeholderName"
+    var name: String
+    var time: Int
     var done: Bool = false
 }
 
