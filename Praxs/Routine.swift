@@ -23,7 +23,13 @@ protocol ListOfThingsToBeDone {
 
 extension ThingsThatNeedToBeDone {
     func timeLabel() -> String {
-        return "\(time) min"
+        if time >= 60 {
+            let hours: Int = time / 60
+            let minutes: Int = time % 60
+            return "\(hours)h\(minutes < 10 ? "0" : "")\(minutes)m"
+        } else {
+            return "\(time) min"
+        }
     }
 }
 extension ListOfThingsToBeDone {
@@ -38,10 +44,16 @@ extension ListOfThingsToBeDone {
     }
 }
 
-struct Task: ThingsThatNeedToBeDone {
+class Task: ThingsThatNeedToBeDone {
     var name: String
     var time: Int
     var done: Bool = false
+    
+    init(name: String, time: Int, done: Bool) {
+        self.name = name
+        self.time = time
+        self.done = done
+    }
 }
 
 struct Routine: ListOfThingsToBeDone {

@@ -69,8 +69,8 @@ class ContextVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToRoutineVC" {
             let vc = segue.destination as! RoutineVC
-            if let tasks = routine?.tasks {
-                vc.tasks = tasks
+            if let routine = routine {
+                vc.routine = routine
             }
         }
     }

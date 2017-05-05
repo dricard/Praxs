@@ -74,6 +74,7 @@
 				21BE6CAD1EA7E4ED00AEFD51 /* TaskCreation.storyboard */,
 				216D42431EA10547009C83B1 /* ContextView.swift */,
 				21D8B7781EAF9FBD007BB7AE /* TopHandleView.swift */,
+				2113C1E31EBCD7350012DC10 /* DoneCheckView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -84,7 +85,6 @@
 				216D423A1EA0F9DF009C83B1 /* ContextVC.swift */,
 				2113C1DD1EBCBEEE0012DC10 /* RoutineVC.swift */,
 				2113C1E11EBCD0C70012DC10 /* TaskCell.swift */,
-				2113C1E31EBCD7350012DC10 /* DoneCheckView.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

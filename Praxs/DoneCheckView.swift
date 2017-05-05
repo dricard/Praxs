@@ -10,10 +10,22 @@ import UIKit
 
 class DoneCheckView: UIView {
 
-    var done: Bool = false
+    private var _done: Bool = false
+    
+    var done: Bool {
+        get {
+            return _done
+        }
+        set (newValue) {
+            _done = newValue
+            setNeedsDisplay()
+        }
+       
+    }
+    
     
     override func draw(_ rect: CGRect) {
-        if done {
+        if _done {
             PraxsStyleKit.drawDoneCheck()
         } else {
             PraxsStyleKit.drawNotDoneCheck()
