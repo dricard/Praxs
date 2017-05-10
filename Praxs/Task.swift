@@ -27,16 +27,16 @@ struct Task:ThingsThatNeedToBeDone{
         self.done = done
     }
     mutating func changeDuration(to:Int){
-        self.duration = to
+        duration = to
     }
-    mutating func complete (completions:Int) {
-        self.completions += 1
+    mutating func complete (_ completion:Int) {
+        completions += 1
     }
     mutating func tag(newTags:Set<String>){
-      self.tags = tags.union(newTags)
+      tags = tags.union(newTags)
     }
     mutating func boundToRoutine(routine:Set<String>){
-        self.routineBonds = routineBonds.union(routine)
+        routineBonds = routineBonds.union(routine)
     }
 
 }
@@ -53,13 +53,13 @@ struct TaskList{
         }
     }
     mutating func append(_ task: Task){
-        self.tasks.append(task)
+        tasks.append(task)
     }
     mutating func insert(_ task:Task,at:Int){
-        self.tasks.insert(task,at:at)
+        tasks.insert(task,at:at)
     }
     mutating func count() -> Int{
-        return self.tasks.count
+        return tasks.count
     }
 
 }
