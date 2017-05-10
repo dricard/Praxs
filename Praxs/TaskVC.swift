@@ -41,7 +41,7 @@ class TaskVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier:"taskDuration", for: indexPath)as! TaskDurationCell
-                cell.timePicker.countDownDuration = task.duration
+                cell.timePicker.countDownDuration = TimeInterval(task.duration)
 //                cell.cellDelegate.self
             return cell
         case 2:
@@ -134,7 +134,7 @@ class TaskVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
         if task.name.isEmpty || task.name == "Task Name"{
             throw taskVcError.taskNameIsNil(msg:"Oopsy! you forgot to name the task")
         }
-        guard task.duration > 0.0 else{
+        guard task.duration > 0 else{
             throw taskVcError.taskDurationIsNil(msg: "Please set the task a duration")
         }
         let taskDict = ["name":task.name,"duration":task.duration,"completions":task.completions,"tags":task.tags,"routineBonds":task.routineBonds] as [String : Any]

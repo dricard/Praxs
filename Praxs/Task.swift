@@ -12,15 +12,21 @@ enum taskError: Error {
     case tagExists(msg:String)
 
 }
-struct Task{
+struct Task:ThingsThatNeedToBeDone{
     // default task hold values of a new task.
     var name:String = "Task Name"
-    var duration:Double = 600.0
+    var duration:Int = 600
     var completions:Int = 0
     var tags: Set<String> = ([])
     var routineBonds:Set<String> = ([])
+    var done: Bool = false
     
-    mutating func changeDuration(to:Double){
+    mutating func forRoutine(name:String, duration: Int,done:Bool){
+        self.name = name
+        self.duration = duration
+        self.done = done
+    }
+    mutating func changeDuration(to:Int){
         self.duration = to
     }
     mutating func complete (completions:Int) {
@@ -47,13 +53,18 @@ struct TaskList{
         }
     }
     mutating func append(_ task: Task){
-        tasks.append(task)
+        self.tasks.append(task)
     }
     mutating func insert(_ task:Task,at:Int){
-        tasks.insert(task,at:at)
+        self.tasks.insert(task,at:at)
+    }
+    mutating func count() -> Int{
+        return self.tasks.count
     }
 
 }
+
+
 // TagList object feeds EditTaskNameVC tableView
 
 struct TagList{

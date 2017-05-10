@@ -10,9 +10,9 @@ import Foundation
 
 protocol ThingsThatNeedToBeDone {
     var name: String { get set }
-    var time: Int { get set }
+    var duration: Int { get set }
     var done: Bool { get set }
-    func timeLabel() -> String
+    func durationLabel() -> String
 }
 
 protocol ListOfThingsToBeDone {
@@ -24,13 +24,13 @@ protocol ListOfThingsToBeDone {
 }
 
 extension ThingsThatNeedToBeDone {
-    func timeLabel() -> String {
-        if time >= 60 {
-            let hours: Int = time / 60
-            let minutes: Int = time % 60
+    func durationLabel() -> String {
+        if duration >= 60 { 
+            let hours: Int = duration / 60
+            let minutes: Int = duration % 60
             return "\(hours)h\(minutes < 10 ? "0" : "")\(minutes)m"
         } else {
-            return "\(time) min"
+            return "\(duration) min"
         }
     }
 }
@@ -65,31 +65,31 @@ extension ListOfThingsToBeDone {
 
     func totalTimeForTasks() -> Int {
         let number = tasks.reduce(0, { sum, task in
-            sum + task.time
+            sum + task.duration
         })
         return number
     }
     
     func remainingTimeForTasks() -> Int {
         let number = tasks.reduce(0, { sum, task in
-            sum + (task.done == false ? task.time : 0)
+            sum + (task.done == false ? task.duration : 0)
         })
         return number
     }
 
 }
 
-class Task: ThingsThatNeedToBeDone {
-    var name: String
-    var time: Int
-    var done: Bool = false
-    
-    init(name: String, time: Int, done: Bool) {
-        self.name = name
-        self.time = time
-        self.done = done
-    }
-}
+//class Task: ThingsThatNeedToBeDone {
+//    var name: String
+//    var duration: Int
+//    var done: Bool = false
+//    
+//    init(name: String, duration: Int, done: Bool) {
+//        self.name = name
+//        self.duration = duration
+//        self.done = done
+//    }
+//}
 
 struct Routine: ListOfThingsToBeDone {
     var tasks = [Task]()

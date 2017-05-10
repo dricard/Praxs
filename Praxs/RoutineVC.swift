@@ -33,7 +33,7 @@ class RoutineVC: UITableViewController {
 extension RoutineVC {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let routine = routine else { return }
+        guard var routine = routine else { return }
         routine.tasks[indexPath.row].done = !(routine.tasks[indexPath.row].done)
         let cell = tableView.cellForRow(at: indexPath) as! TaskCell
         cell.checkView.done = routine.tasks[indexPath.row].done
@@ -58,7 +58,7 @@ extension RoutineVC {
     func configure(cell: TaskCell, indexPath: IndexPath) {
         guard let routine = routine else { return }
         cell.nameLabel?.text = routine.tasks[indexPath.row].name
-        cell.timeLabel?.text = routine.tasks[indexPath.row].timeLabel()
+        cell.timeLabel?.text = routine.tasks[indexPath.row].durationLabel()
         cell.checkView.done = routine.tasks[indexPath.row].done
     }
     
